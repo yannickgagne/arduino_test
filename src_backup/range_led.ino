@@ -1,9 +1,9 @@
 #include <Adafruit_NeoPixel.h>
 #include <avr/power.h>
 
-#define LEDPIN 8
-#define TRIGPIN 6
-#define ECHOPIN 7
+#define LEDPIN 2
+#define TRIGPIN 5
+#define ECHOPIN 6
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, LEDPIN, NEO_GRB + NEO_KHZ800);
 long durPrec = 0;
@@ -11,10 +11,10 @@ long durPrec = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  
+
   pinMode(TRIGPIN,OUTPUT);
   pinMode(ECHOPIN,INPUT);
-  
+
   strip.begin();
   strip.setBrightness(15);
   strip.show();
@@ -24,7 +24,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   int num, limit, x, nloop;
   long dur;
-  
+
   if (durPrec == 0)
   {
     durPrec = RangeRead();
@@ -36,9 +36,9 @@ void loop() {
     durPrec = RangeRead();
     delay(5);
   }
-  
+
   nloop = 0;
-  do 
+  do
   {
     nloop++;
     delayMicroseconds(300);
@@ -63,7 +63,7 @@ void loop() {
       strip.setPixelColor(x, strip.Color(0, 255, 0));
     }
   }
-  
+
   //green step - 2
   if (dur > 2600 && dur < 5201)
   {
@@ -76,7 +76,7 @@ void loop() {
       strip.setPixelColor(x, strip.Color(0, 0, 255));
     }
   }
-  
+
   //blue step - 3
   if (dur > 5200 && dur < 7801)
   {
@@ -89,7 +89,7 @@ void loop() {
       strip.setPixelColor(x, strip.Color(255, 0, 0));
     }
   }
-  
+
     //other step - 4
   if (dur > 7800 && dur < 10401)
   {
@@ -103,7 +103,7 @@ void loop() {
     }
   }
   strip.show();
- 
+
   durPrec = dur;
   Serial.print("end\n");
   delay(20);
@@ -117,7 +117,7 @@ long RangeRead() {
 
   dur = 0;
   total = 0;
-  for (x=0; x<NumReads; x++) {  
+  for (x=0; x<NumReads; x++) {
     digitalWrite(TRIGPIN, LOW);
     delayMicroseconds(5);
     digitalWrite(TRIGPIN, HIGH);
@@ -136,7 +136,6 @@ long RangeRead() {
       */
     }
   }
-  
+
   return total/ReadQty;
 }
-
