@@ -17,7 +17,7 @@ void setup() {
   pinMode(ECHOPIN,INPUT);
 
   strip.begin();
-  strip.setBrightness(15);
+  strip.setBrightness(10);
   strip.show();
 }
 
@@ -79,7 +79,7 @@ void loop() {
     }
   }
   strip.show();
-  delay(100);
+  delay(30);
 }
 
 long sonicMedian() {
@@ -90,7 +90,7 @@ long sonicMedian() {
 
   //Serial.println(m);
   return m;
-  delay(100);
+  delay(15);
 }
 
 long RangeRead() {
